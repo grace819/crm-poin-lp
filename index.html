@@ -206,7 +206,7 @@
           <div class="mt-1">Referral Anda <span class="text-cyan-300 font-semibold">${data.referral}</span></div>
         `;
 
-                if (data.contact_link) {
+                if (data.contact_link && data.contact_link.trim() !== '') {
                     const contactBtn = document.getElementById('contactBtn');
                     contactBtn.onclick = () => {
                         window.open(data.contact_link, '_blank');
@@ -215,6 +215,7 @@
                 } else {
                     contactBtnWrapper.classList.add('hidden');
                 }
+
 
                 resultDiv.classList.remove('hidden');
                 resultDiv.classList.add('animate__fadeInUp');
