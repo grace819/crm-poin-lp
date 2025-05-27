@@ -72,9 +72,8 @@
         .highlight-point {
             font-size: 2.5rem;
             font-weight: 900;
-            color: #ffea00;
-            /* bright yellow */
-            text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea00;
+            color: #0ff;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
         }
 
         .pulse-button {
@@ -105,11 +104,11 @@
 
     <div class="max-w-md w-full text-center space-y-6 z-10 animate__animated animate__fadeInDown">
         <!-- Logo Placeholder -->
-        <div class="flex justify-center">
+        <div class="flex justify-center animate__animated" id="logo-wrapper">
             <img id="site-logo" src="" alt="Logo" class="h-24 mx-auto object-contain" />
         </div>
 
-        <h1 class="text-3xl md:text-4xl neon-text">Cek Poin Anda</h1>
+        <h1 id="page-title" class="text-3xl md:text-4xl neon-text animate__animated">Cek Poin Anda</h1>
 
         <!-- Form Section -->
         <div id="form-section" class="p-6 rounded-xl glow-box animate__animated animate__zoomIn">
@@ -144,6 +143,8 @@
         const animationSection = document.getElementById('animation-section');
         const formSection = document.getElementById('form-section');
         const logoImg = document.getElementById('site-logo');
+        const pageTitle = document.getElementById('page-title');
+        const logoWrapper = document.getElementById('logo-wrapper');
 
         const currentHost = window.location.hostname;
         const subdomainMap = {
@@ -175,6 +176,10 @@
                 return;
             }
 
+            // Animate out title and logo
+            pageTitle.classList.add('animate__fadeOutUp');
+            logoWrapper.classList.add('animate__fadeOutUp');
+
             formSection.classList.add('hidden');
             animationSection.classList.remove('hidden');
             resultDiv.classList.add('hidden');
@@ -189,6 +194,10 @@
                 if (!response.ok) {
                     throw new Error(data.error || 'Terjadi kesalahan.');
                 }
+
+                pageTitle.textContent = 'Poin Anda';
+                pageTitle.classList.remove('animate__fadeOutUp');
+                pageTitle.classList.add('animate__fadeInDown');
 
                 resultDiv.innerHTML = `
           <div class="highlight-point">${data.points} Point</div>
