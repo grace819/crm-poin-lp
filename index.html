@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Check Your Points</title>
+    <title>Cek Poin Anda</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -80,22 +80,22 @@
             <img id="site-logo" src="" alt="Logo" class="h-24 mx-auto object-contain" />
         </div>
 
-        <h1 class="text-3xl md:text-4xl neon-text">Check Your Points</h1>
+        <h1 class="text-3xl md:text-4xl neon-text">Cek Poin Anda</h1>
 
         <!-- Form Section -->
         <div id="form-section" class="p-6 rounded-xl glow-box animate__animated animate__zoomIn">
-            <input id="username" type="text" placeholder="Enter your username"
+            <input id="username" type="text" placeholder="Masukkan username Anda"
                 class="w-full p-3 text-black rounded-md outline-none" autofocus />
             <button id="checkBtn"
                 class="mt-4 w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 rounded-md transition duration-300 shadow-md shadow-cyan-400">
-                Check Now
+                Cek Sekarang
             </button>
         </div>
 
         <!-- Animation Section -->
         <div id="animation-section" class="hidden">
             <div class="time-machine"></div>
-            <p class="text-cyan-300 animate__animated animate__pulse animate__infinite">Scanning database...</p>
+            <p class="text-cyan-300 animate__animated animate__pulse animate__infinite">Memindai database...</p>
         </div>
 
         <!-- Result Section -->
@@ -109,7 +109,6 @@
         const formSection = document.getElementById('form-section');
         const logoImg = document.getElementById('site-logo');
 
-        // Determine correct logo from subdomain
         const currentHost = window.location.hostname;
         const subdomainMap = {
             'pslot-p.crmku.biz': 'pslot',
@@ -136,7 +135,7 @@
         checkBtn.addEventListener('click', async () => {
             const username = document.getElementById('username').value.trim();
             if (!username) {
-                alert('Please enter a username.');
+                alert('Silakan masukkan username.');
                 return;
             }
 
@@ -151,10 +150,10 @@
                 animationSection.classList.add('hidden');
 
                 if (!response.ok) {
-                    throw new Error(data.error || 'Something went wrong');
+                    throw new Error(data.error || 'Terjadi kesalahan.');
                 }
 
-                resultDiv.innerText = `You've got ${data.points} point${data.points === 1 ? '' : 's'}. Your referral is ${data.referral}`;
+                resultDiv.innerText = `Anda memiliki ${data.points} poin. Referral Anda adalah ${data.referral}.`;
                 resultDiv.classList.remove('hidden');
                 resultDiv.classList.add('animate__fadeInUp');
             } catch (error) {
