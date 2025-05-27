@@ -13,7 +13,8 @@
             background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
             color: #fff;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
+            position: relative;
         }
 
         .neon-text {
@@ -76,7 +77,6 @@
             text-shadow: 0 0 10px #ffea00, 0 0 20px #ffea00;
         }
 
-
         .pulse-button {
             animation: pulseBtn 2s infinite;
         }
@@ -100,8 +100,14 @@
     </style>
 </head>
 
-<body class="flex items-center justify-center p-4 relative">
+<body class="flex flex-col items-center justify-center p-4 relative space-y-4">
     <div class="floating-bg"></div>
+
+    <!-- Top Banner -->
+    <div class="w-full max-w-screen-lg px-2">
+        <img src="https://via.placeholder.com/1000x150?text=Top+Banner+Recommended+Size+1000x150" alt="Top Banner"
+            class="w-full rounded-lg shadow-lg" />
+    </div>
 
     <div class="max-w-md w-full text-center space-y-6 z-10 animate__animated animate__fadeInDown">
         <!-- Logo Placeholder -->
@@ -135,6 +141,12 @@
                 Hubungi CRM
             </button>
         </div>
+    </div>
+
+    <!-- Bottom Banner -->
+    <div class="w-full max-w-screen-lg px-2">
+        <img src="https://via.placeholder.com/1000x150?text=Bottom+Banner+Recommended+Size+1000x150" alt="Bottom Banner"
+            class="w-full rounded-lg shadow-lg" />
     </div>
 
     <script>
@@ -206,7 +218,7 @@
           <div class="mt-1">Referral Anda <span class="text-cyan-300 font-semibold">${data.referral}</span></div>
         `;
 
-                if (data.contact_link && data.contact_link.trim() !== '') {
+                if (typeof data.contact_link === 'string' && data.contact_link.trim() !== '') {
                     const contactBtn = document.getElementById('contactBtn');
                     contactBtn.onclick = () => {
                         window.open(data.contact_link, '_blank');
