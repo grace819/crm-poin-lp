@@ -8,6 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Orbitron', sans-serif;
             background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
@@ -29,10 +34,10 @@
 
         .floating-bg {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             background: radial-gradient(circle, rgba(0, 255, 255, 0.05) 20%, transparent 70%),
                 radial-gradient(circle, rgba(0, 255, 255, 0.05) 10%, transparent 60%);
             background-size: 300px 300px;
