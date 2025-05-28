@@ -92,6 +92,13 @@
                 box-shadow: 0 0 0 0 rgba(0, 255, 255, 0);
             }
         }
+
+        #floating-popup {
+            max-width: 90%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     </style>
 </head>
 
@@ -143,6 +150,11 @@
         <img src="https://dummyimage.com/1000x150/0ff/000000&text=1000x150+Bottom+Banner" alt="Bottom Banner"
             class="w-full max-w-full h-auto rounded-lg shadow-lg mx-auto" />
     </div>
+
+    <div id="floating-popup"
+        class="fixed bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-black bg-opacity-70 text-white rounded shadow-lg text-sm animate__animated hidden z-50">
+    </div>
+
 
     <script>
         const checkBtn = document.getElementById('checkBtn');
@@ -235,6 +247,47 @@
                 resultDiv.classList.add('animate__fadeInUp');
             }
         });
+
+
+        // POPUPS
+        showPopups();
+
+        function showPopups() {
+            const players = [
+                'PlayerA', 'PlayerB', 'PlayerC', 'PlayerD',
+                'PlayerE', 'PlayerF', 'PlayerG', 'PlayerH'
+            ];
+
+            const items = [
+                'Voucher 50K', 'Spin Gratis', 'Skin Premium',
+                'Koin Tambahan', 'Voucher 100K', 'Tiket Event',
+                'Bonus Cashback', 'Bundle Eksklusif', 'Diskon 20%', 'Lucky Box'
+            ];
+
+            const popupEl = document.getElementById('floating-popup');
+
+            function showRandomPopup() {
+                const randomPlayer = players[Math.floor(Math.random() * players.length)];
+                const randomItem = items[Math.floor(Math.random() * items.length)];
+                const message = `${randomPlayer} baru saja menukarkan ${randomItem}`;
+
+                popupEl.textContent = message;
+                popupEl.classList.remove('hidden');
+                popupEl.classList.add('animate__fadeInUp');
+
+                setTimeout(() => {
+                    popupEl.classList.remove('animate__fadeInUp');
+                    popupEl.classList.add('animate__fadeOutDown');
+                }, 4000);
+
+                setTimeout(() => {
+                    popupEl.classList.add('hidden');
+                    popupEl.classList.remove('animate__fadeOutDown');
+                }, 5000);
+            }
+
+            setInterval(showRandomPopup, 8000); // change every 8 seconds
+        }
     </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
