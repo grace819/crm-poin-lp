@@ -197,10 +197,10 @@
         logoImg.onerror = () => logoImg.remove();
 
         if (site.domain && site.key) {
-            tryInjectBanner('top-banner-wrapper', 'top-banner-1', `https://${site.domain}/banners/${site.key}-top1.jpg`);
-            tryInjectBanner('top-banner-wrapper', 'top-banner-2', `https://${site.domain}/banners/${site.key}-top2.jpg`);
-            tryInjectBanner('bottom-banner-wrapper', 'bottom-banner-1', `https://${site.domain}/banners/${site.key}-bottom1.jpg`);
-            tryInjectBanner('bottom-banner-wrapper', 'bottom-banner-2', `https://${site.domain}/banners/${site.key}-bottom2.jpg`);
+            tryInjectBanner('top-banner-wrapper', 'top-banner-1', `https://${site.domain}/banners/${site.key}-top-1.jpg`);
+            tryInjectBanner('top-banner-wrapper', 'top-banner-2', `https://${site.domain}/banners/${site.key}-top-2.jpg`);
+            tryInjectBanner('bottom-banner-wrapper', 'bottom-banner-1', `https://${site.domain}/banners/${site.key}-bottom-1.jpg`);
+            tryInjectBanner('bottom-banner-wrapper', 'bottom-banner-2', `https://${site.domain}/banners/${site.key}-bottom-2.jpg`);
         }
 
         checkBtn.addEventListener('click', async () => {
