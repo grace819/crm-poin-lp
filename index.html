@@ -108,8 +108,9 @@
 
     <!-- Top Banner -->
     <div class="w-full px-2 max-w-screen-lg overflow-hidden">
-        <img src="https://dummyimage.com/1000x150/0ff/000000&text=1000x150+Top+Banner" alt="Top Banner"
-            class="w-full max-w-full h-auto rounded-lg shadow-lg mx-auto" />
+        <!-- Top Banner -->
+        <img alt="Top Banner" id="top-banner" class="w-full max-w-full h-auto rounded-lg shadow-lg mx-auto"
+            onerror="this.remove()" />
     </div>
 
     <div class="max-w-md w-full text-center space-y-6 z-10 animate__animated animate__fadeInDown">
@@ -148,8 +149,8 @@
 
     <!-- Bottom Banner -->
     <div class="w-full px-2 max-w-screen-lg overflow-hidden">
-        <img src="https://dummyimage.com/1000x150/0ff/000000&text=1000x150+Bottom+Banner" alt="Bottom Banner"
-            class="w-full max-w-full h-auto rounded-lg shadow-lg mx-auto" />
+        <img alt="Bottom Banner" id="bottom-banner" class="w-full max-w-full h-auto rounded-lg shadow-lg mx-auto"
+            onerror="this.remove()" />
     </div>
 
     <div id="floating-popup"
@@ -160,6 +161,18 @@
 
 
     <script>
+        // ✅ Centralized domain logic
+        const siteConfig = {
+            'wild-p.crmku.biz': { domain: 'wild.crmku.biz', key: 'wild' },
+            'pslot-p.crmku.biz': { domain: 'pslot.crmku.biz', key: 'pslot' },
+            'pspin-p.crmku.biz': { domain: 'pspin.crmku.biz', key: 'pspin' },
+            'lahan-p.crmku.biz': { domain: 'lahan.crmku.biz', key: 'lahan' },
+            'muw-p.crmku.biz': { domain: 'muw.crmku.biz', key: 'muw' },
+        };
+
+        const currentHost = window.location.hostname;
+        const site = siteConfig[currentHost] ?? { domain: 'wild.crmku.biz', key: 'wild' };
+
         const checkBtn = document.getElementById('checkBtn');
         const resultDiv = document.getElementById('result');
         const contactBtnWrapper = document.getElementById('contact-btn-wrapper');
@@ -169,28 +182,11 @@
         const pageTitle = document.getElementById('page-title');
         const logoWrapper = document.getElementById('logo-wrapper');
 
-        const currentHost = window.location.hostname;
-        const subdomainMap = {
-            'pslot-p.crmku.biz': 'pslot',
-            'pspin-p.crmku.biz': 'pspin',
-            'lahan-p.crmku.biz': 'lahan',
-            'muw-p.crmku.biz': 'muw',
-            'wild-p.crmku.biz': 'wild',
-        };
-
-        const domainMap = {
-            'pslot-p.crmku.biz': 'pslot.crmku.biz',
-            'pspin-p.crmku.biz': 'pspin.crmku.biz',
-            'lahan-p.crmku.biz': 'lahan.crmku.biz',
-            'muw-p.crmku.biz': 'muw.crmku.biz',
-            'wild-p.crmku.biz': 'wild.crmku.biz',
-        };
-
-        const logoKey = subdomainMap[currentHost] ?? 'wild';
-        logoImg.src = `./logos/${logoKey}.png`;
+        logoImg.src = `./logos/${site.key}.png`;
         logoImg.onerror = () => logoImg.remove();
 
-        const apiBase = domainMap[currentHost] ?? 'wild.crmku.biz';
+        document.getElementById('top-banner').src = `https://${site.domain}/top-banner.png`;
+        document.getElementById('bottom-banner').src = `https://${site.domain}/bottom-banner.png`;
 
         checkBtn.addEventListener('click', async () => {
             const username = document.getElementById('username').value.trim();
@@ -199,19 +195,16 @@
                 return;
             }
 
-            // Animate out title and logo
             pageTitle.classList.add('animate__fadeOutUp');
             logoWrapper.classList.add('animate__fadeOutUp');
-
             formSection.classList.add('hidden');
             animationSection.classList.remove('hidden');
             resultDiv.classList.add('hidden');
             contactBtnWrapper.classList.add('hidden');
 
             try {
-                const response = await fetch(`https://${apiBase}/api/player-points?username=${username}`);
+                const response = await fetch(`https://${site.domain}/api/player-points?username=${username}`);
                 const data = await response.json();
-
                 animationSection.classList.add('hidden');
 
                 if (!response.ok) {
@@ -223,13 +216,12 @@
                 pageTitle.classList.add('animate__fadeInDown');
 
                 resultDiv.innerHTML = `
-  <div class="text-xl text-cyan-300 font-semibold mb-1">Poin Anda</div>
-  <div class="highlight-point mb-4">${data.points} Point</div>
+                <div class="text-xl text-cyan-300 font-semibold mb-1">Poin Anda</div>
+                <div class="highlight-point mb-4">${data.points} Point</div>
 
-  <div class="text-xl text-cyan-300 font-semibold mb-1">Admin Anda</div>
-  <div class="highlight-point">${data.referral}</div>
-`;
-
+                <div class="text-xl text-cyan-300 font-semibold mb-1">Admin Anda</div>
+                <div class="highlight-point">${data.referral}</div>
+            `;
 
                 if (typeof data.contact_link === 'string' && data.contact_link.trim() !== '') {
                     const contactBtn = document.getElementById('contactBtn');
@@ -251,8 +243,7 @@
             }
         });
 
-
-        // POPUPS
+        // ✅ Floating popup logic
         showPopups();
 
         function showPopups() {
@@ -269,14 +260,8 @@
             const items = [
                 'Saldo 50K', 'Spin Gratis 10X', 'iPhone 16 Plus 128GB',
                 'iPhone 16 Pro Max 128GB', 'Saldo 100K', 'iPhone 16 64GB',
-                'Saldo 50K','Saldo 50K','Saldo 50K','Saldo 50K',
-                'Saldo 50K','Saldo 50K','Saldo 50K','Saldo 50K',
-                'Saldo 100K','Saldo 100K','Saldo 100K','Saldo 100K',
-                'Saldo 100K','Saldo 100K','Saldo 100K','Saldo 100K',
-                'Saldo 100K','Saldo 100K','Saldo 100K','Saldo 100K',
-                'Saldo 200K','Saldo 200K','Saldo 200K','Saldo 200K',
-                'Saldo 500K','Saldo 500K','Saldo 1 Juta','Saldo 1 Juta',
-                'Samsung S25 256GB', 'Samsung S25+ 256GB', 'Samsung S25 Edge 256GB', 'Samsung S25 Ultra 256GB'
+                'Saldo 200K', 'Saldo 500K', 'Saldo 1 Juta',
+                'Samsung S25 256GB', 'Samsung S25+ 256GB', 'Samsung S25 Ultra 256GB'
             ];
 
             const popupEl = document.getElementById('floating-popup');
@@ -301,9 +286,10 @@
                 }, 5000);
             }
 
-            setInterval(showRandomPopup, 8000); // change every 8 seconds
+            setInterval(showRandomPopup, 8000);
         }
     </script>
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </body>
