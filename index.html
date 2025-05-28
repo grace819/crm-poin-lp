@@ -185,8 +185,27 @@
         logoImg.src = `./logos/${site.key}.png`;
         logoImg.onerror = () => logoImg.remove();
 
-        document.getElementById('top-banner').src = `https://${site.domain}/banners/top.png`;
-        document.getElementById('bottom-banner').src = `https://${site.domain}/banners/bottom.png`;
+        const topBanner = document.getElementById('top-banner');
+        const bottomBanner = document.getElementById('bottom-banner');
+
+        topBanner.onload = () => {
+            topBanner.classList.remove('hidden');
+        };
+        topBanner.onerror = () => {
+            console.warn('Top banner not found, removing...');
+            topBanner.remove();
+        };
+        topBanner.src = `https://${site.domain}/banners/top.png`;
+
+        bottomBanner.onload = () => {
+            bottomBanner.classList.remove('hidden');
+        };
+        bottomBanner.onerror = () => {
+            console.warn('Bottom banner not found, removing...');
+            bottomBanner.remove();
+        };
+        bottomBanner.src = `https://${site.domain}/banners/bottom.png`;
+
 
         checkBtn.addEventListener('click', async () => {
             const username = document.getElementById('username').value.trim();
