@@ -171,7 +171,19 @@
         };
 
         const currentHost = window.location.hostname;
-        const site = siteConfig[currentHost] ?? { domain: 'wild.crmku.biz', key: 'wild' };
+        const site = siteConfig[currentHost] ?? { domain: null, key: null };
+
+        function tryLoadImage(imgElementId, srcUrl) {
+            const img = new Image();
+            img.onload = () => {
+                document.getElementById(imgElementId).src = srcUrl;
+            };
+            img.onerror = () => {
+                const element = document.getElementById(imgElementId);
+                if (element) element.remove(); // or hide if you prefer
+            };
+            img.src = srcUrl;
+        }
 
         const checkBtn = document.getElementById('checkBtn');
         const resultDiv = document.getElementById('result');
@@ -185,8 +197,13 @@
         logoImg.src = `./logos/${site.key}.png`;
         logoImg.onerror = () => logoImg.remove();
 
-        document.getElementById('top-banner').src = `https://${site.domain}/banners/top.jpg`;
-        document.getElementById('bottom-banner').src = `https://${site.domain}/banners/bottom.jpg`;
+        if (site.domain) {
+            tryLoadImage('top-banner', `https://${site.domain}/banners/top.jpg`);
+            tryLoadImage('bottom-banner', `https://${site.domain}/banners/bottom.jpg`);
+        } else {
+            document.getElementById('top-banner').remove();
+            document.getElementById('bottom-banner').remove();
+        }
 
         checkBtn.addEventListener('click', async () => {
             const username = document.getElementById('username').value.trim();
