@@ -107,11 +107,8 @@
     <div class="floating-bg"></div>
 
     <!-- Top Banner -->
-    <div class="w-full px-2 max-w-screen-lg overflow-hidden">
-        <!-- Top Banner -->
-        <img alt="Top Banner" id="top-banner" class="w-full max-w-full h-auto rounded-lg shadow-lg mx-auto"
-            onerror="this.remove()" />
-    </div>
+    <div id="top-banner-wrapper" class="w-full px-2 max-w-screen-lg overflow-hidden"></div>
+
 
     <div class="max-w-md w-full text-center space-y-6 z-10 animate__animated animate__fadeInDown">
         <!-- Logo Placeholder -->
@@ -148,10 +145,7 @@
     </div>
 
     <!-- Bottom Banner -->
-    <div class="w-full px-2 max-w-screen-lg overflow-hidden">
-        <img alt="Bottom Banner" id="bottom-banner" class="w-full max-w-full h-auto rounded-lg shadow-lg mx-auto"
-            onerror="this.remove()" />
-    </div>
+    <div id="bottom-banner-wrapper" class="w-full px-2 max-w-screen-lg overflow-hidden"></div>
 
     <div id="floating-popup"
         class="fixed bottom-6 left-6 bg-yellow-400 text-black font-semibold px-6 py-2 rounded-full shadow-lg text-sm animate__animated hidden z-50">
@@ -173,17 +167,20 @@
         const currentHost = window.location.hostname;
         const site = siteConfig[currentHost] ?? { domain: null, key: null };
 
-        function tryLoadImage(imgElementId, srcUrl) {
+        function tryLoadImage(wrapperId, srcUrl) {
             const img = new Image();
             img.onload = () => {
-                document.getElementById(imgElementId).src = srcUrl;
+                const wrapper = document.getElementById(wrapperId);
+                if (wrapper) {
+                    img.className = "w-full max-w-full h-auto rounded-lg shadow-lg mx-auto animate__animated animate__fadeInDown";
+                    img.alt = "Banner";
+                    wrapper.appendChild(img);
+                }
             };
-            img.onerror = () => {
-                const element = document.getElementById(imgElementId);
-                if (element) element.remove(); // or hide if you prefer
-            };
+            // No else — don't append if error
             img.src = srcUrl;
         }
+
 
         const checkBtn = document.getElementById('checkBtn');
         const resultDiv = document.getElementById('result');
@@ -198,8 +195,9 @@
         logoImg.onerror = () => logoImg.remove();
 
         if (site.domain && site.key) {
-            tryLoadImage('top-banner', `https://${site.domain}/banners/${site.key}-top.jpg`);
-            tryLoadImage('bottom-banner', `https://${site.domain}/banners/${site.key}-bottom.jpg`);
+            tryLoadImage('top-banner-wrapper', `https://${site.domain}/banners/${site.key}-top.jpg`);
+            tryLoadImage('bottom-banner-wrapper', `https://${site.domain}/banners/${site.key}-bottom.jpg`);
+
         } else {
             document.getElementById('top-banner').remove();
             document.getElementById('bottom-banner').remove();
