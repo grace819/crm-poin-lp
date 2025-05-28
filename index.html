@@ -197,9 +197,9 @@
         logoImg.src = `./logos/${site.key}.png`;
         logoImg.onerror = () => logoImg.remove();
 
-        if (site.domain) {
-            tryLoadImage('top-banner', `https://${site.domain}/banners/top.jpg`);
-            tryLoadImage('bottom-banner', `https://${site.domain}/banners/bottom.jpg`);
+        if (site.domain && site.key) {
+            tryLoadImage('top-banner', `https://${site.domain}/banners/${site.key}-top.jpg`);
+            tryLoadImage('bottom-banner', `https://${site.domain}/banners/${site.key}-bottom.jpg`);
         } else {
             document.getElementById('top-banner').remove();
             document.getElementById('bottom-banner').remove();
