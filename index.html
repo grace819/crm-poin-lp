@@ -185,9 +185,8 @@
         logoImg.src = `./logos/${site.key}.png`;
         logoImg.onerror = () => logoImg.remove();
 
-        document.getElementById('top-banner').src = `https://${site.domain}/public/banners/top.png`;
-        document.getElementById('bottom-banner').src = `https://${site.domain}/public/banners/bottom.png`;
-
+        document.getElementById('top-banner').src = `https://${site.domain}/banners/top.png`;
+        document.getElementById('bottom-banner').src = `https://${site.domain}/banners/bottom.png`;
 
         checkBtn.addEventListener('click', async () => {
             const username = document.getElementById('username').value.trim();
