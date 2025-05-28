@@ -179,8 +179,11 @@
             img.id = imageId;
             img.alt = imageId.replace('-', ' ');
             img.className = 'w-full h-auto rounded-lg shadow-lg animate__animated animate__fadeInDown';
+
             img.onload = () => wrapper.appendChild(img);
-            img.onerror = () => { }; // skip if image fails
+            img.onerror = () => {
+                console.warn(`Failed to load image: ${srcUrl}`);
+            };
             img.src = srcUrl;
         }
 
@@ -197,10 +200,12 @@
         logoImg.onerror = () => logoImg.remove();
 
         if (site.domain && site.key) {
-            tryInjectBanner('top-banner-wrapper', 'top-banner-1', `https://${site.domain}/banners/${site.key}-top-1.jpg`);
-            tryInjectBanner('top-banner-wrapper', 'top-banner-2', `https://${site.domain}/banners/${site.key}-top-2.jpg`);
-            tryInjectBanner('bottom-banner-wrapper', 'bottom-banner-1', `https://${site.domain}/banners/${site.key}-bottom-1.jpg`);
-            tryInjectBanner('bottom-banner-wrapper', 'bottom-banner-2', `https://${site.domain}/banners/${site.key}-bottom-2.jpg`);
+            ['top-1', 'top-2'].forEach(pos => {
+                tryInjectBanner('top-banner-wrapper', `top-banner-${pos}`, `https://${site.domain}/banners/${site.key}-${pos}.jpg`);
+            });
+            ['bottom-1', 'bottom-2'].forEach(pos => {
+                tryInjectBanner('bottom-banner-wrapper', `bottom-banner-${pos}`, `https://${site.domain}/banners/${site.key}-${pos}.jpg`);
+            });
         }
 
         checkBtn.addEventListener('click', async () => {
