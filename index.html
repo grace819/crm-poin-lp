@@ -94,13 +94,19 @@
         }
 
         #floating-popup {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
             box-shadow: 0 0 10px #ffe100, 0 0 20px #ffe100;
             max-width: 90%;
             white-space: normal;
             overflow-wrap: break-word;
-            padding: 0.5rem 1rem;
-            line-height: 1.3;
-            font-size: 0.875rem;
+            padding: 0.25rem 0.75rem;
+            line-height: 1.1;
+            font-size: 0.75rem;
+            text-align: center;
+            /* ⬅️ Centered */
             overflow: hidden;
             text-overflow: ellipsis;
         }
