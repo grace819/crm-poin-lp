@@ -94,6 +94,10 @@
         }
 
         #floating-popup {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
             box-shadow: 0 0 10px #ffe100, 0 0 20px #ffe100;
             max-width: 90%;
             white-space: normal;
@@ -104,6 +108,7 @@
             text-align: center;
             overflow: hidden;
             text-overflow: ellipsis;
+            z-index: 50;
         }
     </style>
 </head>
@@ -152,17 +157,9 @@
     <!-- Bottom Banner -->
     <div id="bottom-banner-wrapper" class="w-full px-2 max-w-screen-lg overflow-hidden flex flex-col space-y-2"></div>
 
-    <!-- <div id="floating-popup"
-        class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-black font-semibold px-6 py-2 rounded-full shadow-lg text-sm animate__animated hidden z-50">
-    </div> -->
-
     <div id="floating-popup"
-        class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-black font-semibold px-6 py-2 rounded-full shadow-lg text-sm animate__animated z-50">
-        Test Popup Position
+        class="bg-yellow-400 text-black font-semibold px-6 py-2 rounded-full shadow-lg text-sm animate__animated hidden z-50">
     </div>
-
-
-
 
 
 
