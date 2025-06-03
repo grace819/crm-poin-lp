@@ -307,8 +307,10 @@
                 }, 7000);
             }
 
-            showRandomPopup();
-            setInterval(showRandomPopup, 9000);
+            setTimeout(() => {
+                showRandomPopup();
+                setInterval(showRandomPopup, 9000); // starts loop after first popup
+            }, 3000); // first popup shows after 3 seconds
         }
     </script>
 
